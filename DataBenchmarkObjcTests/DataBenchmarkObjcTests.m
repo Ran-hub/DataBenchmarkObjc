@@ -66,7 +66,7 @@ static const NSString *testString = @"test";
     }];
 }
 
-- (void) testArrayFindSpeed {
+- (void) testArrayIndexOfSpeed {
     NSMutableArray *testArray = [self generateArray];
     NSString *const last = testArray.lastObject;
     [self measureBlock: ^{
@@ -74,16 +74,129 @@ static const NSString *testString = @"test";
     }];
 }
 
+- (void) testArrayContainSpeed {
+    NSMutableArray *testArray = [self generateArray];
+    NSString *const last = testArray.lastObject;
+    [self measureBlock: ^{
+        [testArray containsObject:last];
+    }];
+}
+
+
+#pragma mark - Sets
+
+- (void)testSetWriteSpeed {
+    [self measureBlock: ^{
+        [self generateSet];
+    }];
+}
+
+- (void)testSetFastEnumReadSpeed {
+    NSMutableSet *testSet = [self generateSet];
+    
+    [self measureBlock: ^{
+        for (NSString *str in testSet) {
+            NSString *const constant = str;
+        }
+    }];
+}
+
+- (void)testSetFastEnumDeleteSpeed {
+    NSMutableSet *testSet = [self generateSet];
+    NSMutableSet *removeSet = [NSMutableSet new];
+    [self measureBlock: ^{
+        for (NSString *item in testSet) {
+            [removeSet addObject:item];
+        }
+        [testSet minusSet:removeSet];
+    }];
+}
+
+- (void)testSetContainsSpeed {
+    NSMutableSet *testSet = [self generateSet];
+    
+    NSString *const toFound = [NSString stringWithFormat:@"%@%u", testString, iterationCount - 1];
+    [self measureBlock: ^{
+        [testSet containsObject:toFound];
+    }];
+}
+
+//MARK: Dictionaries
+
+- (void)testDictionaryWriteSpeed {
+    [self measureBlock: ^{
+        [self generateDictionary];
+    }];
+}
+
+- (void)testDictionaryFastEnumReadSpeed {
+    NSMutableDictionary *testDictionary = [self generateDictionary];
+    
+    [self measureBlock: ^{
+        for (NSString *value in testDictionary.allValues) {
+            NSString *const constant = value;
+        }
+    }];
+}
+
+- (void)testDictionaryByKeyReadSpeed {
+    NSMutableDictionary *testDictionary = [self generateDictionary];
+    
+    [self measureBlock: ^{
+        for (NSUInteger i = 0; i < testDictionary.count; i++) {
+            NSString *const constant = testDictionary[[NSString stringWithFormat:@"%lu", (unsigned long)i]];
+        }
+    }];
+}
+
+- (void)testDictionaryByKeyDeleteSpeed {
+    NSMutableDictionary *testDictionary = [self generateDictionary];
+    
+    [self measureBlock: ^{
+        for (NSUInteger i = 0; i < testDictionary.count; i++) {
+            [testDictionary removeObjectForKey:[NSString stringWithFormat:@"%lu", (unsigned long)i]];
+        }
+    }];
+}
+
+- (void)testDictionaryContainSpeed {
+    NSMutableDictionary *testDictionary = [self generateDictionary];
+    
+    NSString *const toFound = [NSString stringWithFormat:@"%@%u", testString, iterationCount - 1];
+    [self measureBlock: ^{
+        [testDictionary.allValues containsObject:toFound];
+    }];
+}
+
 #pragma mark - Helper methods
 
- - (NSMutableArray *)generateArray {
-     NSMutableArray *testArray = [NSMutableArray new];
+- (NSMutableArray *)generateArray {
+    NSMutableArray *testArray = [NSMutableArray new];
     for (NSUInteger i = 0; i < iterationCount; i++) {
         [testArray addObject:[NSString stringWithFormat:@"%@%lu", testString, (unsigned long)i]];
     }
     
     return testArray;
 }
+
+- (NSMutableSet *)generateSet {
+    NSMutableSet *testSet = [NSMutableSet new];
+    for (NSUInteger i = 0; i < iterationCount; i++) {
+        [testSet addObject:[NSString stringWithFormat:@"%@%lu", testString, (unsigned long)i]];
+    }
+    
+    return testSet;
+}
+
+- (NSMutableDictionary *)generateDictionary {
+    NSMutableDictionary * testDictionary = [NSMutableDictionary new];
+    for (NSUInteger i = 0; i < iterationCount; i++) {
+        testDictionary[[NSString stringWithFormat:@"%lu", (unsigned long)i]] = [NSString stringWithFormat:@"%@%lu", testString, (unsigned long)i];
+    }
+    
+    return testDictionary;
+}
+
 
 
 @end
