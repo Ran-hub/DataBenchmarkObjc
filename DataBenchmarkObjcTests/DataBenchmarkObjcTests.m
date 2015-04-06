@@ -21,6 +21,11 @@ static const NSString *testString = @"test";
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    NSDate *startDate = [NSDate new];
+    /* code to estimate you can put here */
+     NSDate *endDate = [NSDate new];
+    NSTimeInterval operationTime = [endDate timeIntervalSinceDate:startDate];
+    NSLog(@"Operation takes %f ms", operationTime * 1000);
 }
 
 - (void)tearDown {
