@@ -7,10 +7,40 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		79B541A714369927B3560452 /* YALLinkedNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B54CE7A0D757F033C6B8C7 /* YALLinkedNode.m */; };
+		79B5426DC59B242B3895E32C /* YALStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B542367277017E08DC38BF /* YALStack.m */; };
+		79B54279339CC91A0732773F /* YALBinaryTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B54140F933AFC34630D34E /* YALBinaryTreeNode.m */; };
+		79B543F1B250CCCD5C8470E1 /* YALBinaryTreeNode+Rotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B54A67A8FA6295A67C60B7 /* YALBinaryTreeNode+Rotation.m */; };
+		79B544F8BA578110AE7B3EC0 /* YALNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B54F6E7BAD4B7B65D0C2D6 /* YALNode.m */; };
+		79B5465D0638D2C716274A1F /* DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B548F75767B4BCB03EC173 /* DataStorage.m */; };
+		79B54AF3CF03C79C504C974B /* YALLinkedList.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B540EF237A6804D4B2CBDD /* YALLinkedList.m */; };
+		79B54C70BDD1BC604F9C7FC5 /* YALOptimizedLinkedList.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B541BA7F3085FD1EC719E5 /* YALOptimizedLinkedList.m */; };
+		79B54E1DBD324E9CE930899B /* YALQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B545639EF9C1A4B15C91F3 /* YALQueue.m */; };
+		79B54FD00FA38CDC182216D9 /* YALBinarySearchTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B54F364EA42B6F293015A4 /* YALBinarySearchTree.m */; };
 		856876311ACD2A31008B25BD /* DataBenchmarkObjcTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 856876301ACD2A31008B25BD /* DataBenchmarkObjcTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		79B540067F57E59C7F329F73 /* YALQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YALQueue.h; sourceTree = "<group>"; };
+		79B540300915234CDF4D72DC /* YALLinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YALLinkedList.h; sourceTree = "<group>"; };
+		79B540EF237A6804D4B2CBDD /* YALLinkedList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YALLinkedList.m; sourceTree = "<group>"; };
+		79B54140F933AFC34630D34E /* YALBinaryTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YALBinaryTreeNode.m; sourceTree = "<group>"; };
+		79B54163CAFB82091A80FDFB /* YALLinkedNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YALLinkedNode.h; sourceTree = "<group>"; };
+		79B541BA7F3085FD1EC719E5 /* YALOptimizedLinkedList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YALOptimizedLinkedList.m; sourceTree = "<group>"; };
+		79B542367277017E08DC38BF /* YALStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YALStack.m; sourceTree = "<group>"; };
+		79B545639EF9C1A4B15C91F3 /* YALQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YALQueue.m; sourceTree = "<group>"; };
+		79B545AB20F79BE895D752A9 /* YALOptimizedLinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YALOptimizedLinkedList.h; sourceTree = "<group>"; };
+		79B546F6009E810728400BC9 /* YALStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YALStack.h; sourceTree = "<group>"; };
+		79B548F75767B4BCB03EC173 /* DataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataStorage.m; sourceTree = "<group>"; };
+		79B54A67A8FA6295A67C60B7 /* YALBinaryTreeNode+Rotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YALBinaryTreeNode+Rotation.m"; sourceTree = "<group>"; };
+		79B54BA427CBF816F74A8C2D /* YALNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YALNode.h; sourceTree = "<group>"; };
+		79B54BB970B4CE44361014F3 /* YALBinaryTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YALBinaryTreeNode.h; sourceTree = "<group>"; };
+		79B54C34E609252A2A0DE89F /* DataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStorage.h; sourceTree = "<group>"; };
+		79B54CE7A0D757F033C6B8C7 /* YALLinkedNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YALLinkedNode.m; sourceTree = "<group>"; };
+		79B54D172AB4200ED1920FD6 /* YALBinarySearchTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YALBinarySearchTree.h; sourceTree = "<group>"; };
+		79B54F364EA42B6F293015A4 /* YALBinarySearchTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YALBinarySearchTree.m; sourceTree = "<group>"; };
+		79B54F6E7BAD4B7B65D0C2D6 /* YALNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YALNode.m; sourceTree = "<group>"; };
+		79B54F7B4F4B9AE38586884C /* YALBinaryTreeNode+Rotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YALBinaryTreeNode+Rotation.h"; sourceTree = "<group>"; };
 		8568762A1ACD2A31008B25BD /* DataBenchmarkObjcTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataBenchmarkObjcTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8568762F1ACD2A31008B25BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		856876301ACD2A31008B25BD /* DataBenchmarkObjcTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataBenchmarkObjcTests.m; sourceTree = "<group>"; };
@@ -27,6 +57,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		79B54B530C69F84B83F7C7C3 /* DataStructures */ = {
+			isa = PBXGroup;
+			children = (
+				79B541BA7F3085FD1EC719E5 /* YALOptimizedLinkedList.m */,
+				79B540300915234CDF4D72DC /* YALLinkedList.h */,
+				79B540EF237A6804D4B2CBDD /* YALLinkedList.m */,
+				79B545AB20F79BE895D752A9 /* YALOptimizedLinkedList.h */,
+				79B542367277017E08DC38BF /* YALStack.m */,
+				79B546F6009E810728400BC9 /* YALStack.h */,
+				79B545639EF9C1A4B15C91F3 /* YALQueue.m */,
+				79B540067F57E59C7F329F73 /* YALQueue.h */,
+				79B548F75767B4BCB03EC173 /* DataStorage.m */,
+				79B54C34E609252A2A0DE89F /* DataStorage.h */,
+				79B54F364EA42B6F293015A4 /* YALBinarySearchTree.m */,
+				79B54D172AB4200ED1920FD6 /* YALBinarySearchTree.h */,
+			);
+			path = DataStructures;
+			sourceTree = "<group>";
+		};
+		79B54B9D47758DEA2EA5D703 /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+				79B54F6E7BAD4B7B65D0C2D6 /* YALNode.m */,
+				79B54163CAFB82091A80FDFB /* YALLinkedNode.h */,
+				79B54CE7A0D757F033C6B8C7 /* YALLinkedNode.m */,
+				79B54BA427CBF816F74A8C2D /* YALNode.h */,
+				79B54140F933AFC34630D34E /* YALBinaryTreeNode.m */,
+				79B54BB970B4CE44361014F3 /* YALBinaryTreeNode.h */,
+				79B54A67A8FA6295A67C60B7 /* YALBinaryTreeNode+Rotation.m */,
+				79B54F7B4F4B9AE38586884C /* YALBinaryTreeNode+Rotation.h */,
+			);
+			path = Nodes;
+			sourceTree = "<group>";
+		};
 		856876081ACD2A31008B25BD = {
 			isa = PBXGroup;
 			children = (
@@ -48,6 +112,8 @@
 			children = (
 				856876301ACD2A31008B25BD /* DataBenchmarkObjcTests.m */,
 				8568762E1ACD2A31008B25BD /* Supporting Files */,
+				79B54B9D47758DEA2EA5D703 /* Nodes */,
+				79B54B530C69F84B83F7C7C3 /* DataStructures */,
 			);
 			path = DataBenchmarkObjcTests;
 			sourceTree = "<group>";
@@ -129,6 +195,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				856876311ACD2A31008B25BD /* DataBenchmarkObjcTests.m in Sources */,
+				79B544F8BA578110AE7B3EC0 /* YALNode.m in Sources */,
+				79B541A714369927B3560452 /* YALLinkedNode.m in Sources */,
+				79B54C70BDD1BC604F9C7FC5 /* YALOptimizedLinkedList.m in Sources */,
+				79B54AF3CF03C79C504C974B /* YALLinkedList.m in Sources */,
+				79B5426DC59B242B3895E32C /* YALStack.m in Sources */,
+				79B54E1DBD324E9CE930899B /* YALQueue.m in Sources */,
+				79B54279339CC91A0732773F /* YALBinaryTreeNode.m in Sources */,
+				79B5465D0638D2C716274A1F /* DataStorage.m in Sources */,
+				79B543F1B250CCCD5C8470E1 /* YALBinaryTreeNode+Rotation.m in Sources */,
+				79B54FD00FA38CDC182216D9 /* YALBinarySearchTree.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

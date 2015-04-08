@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+#import "YALLinkedList.h"
+#import "YALOptimizedLinkedList.h"
+#import "YALStack.h"
+#import "YALQueue.h"
 
-static const NSUInteger iterationCount = 100000;
+static const NSInteger iterationCount = 10000;
 static const NSString *testString = @"test";
 
 @interface DataBenchmarkObjcTests : XCTestCase
@@ -23,7 +27,7 @@ static const NSString *testString = @"test";
     // Put setup code here. This method is called before the invocation of each test method in the class.
     NSDate *startDate = [NSDate new];
     /* code to estimate you can put here */
-     NSDate *endDate = [NSDate new];
+    NSDate *endDate = [NSDate new];
     NSTimeInterval operationTime = [endDate timeIntervalSinceDate:startDate];
     NSLog(@"Operation takes %f ms", operationTime * 1000);
 }
@@ -33,56 +37,56 @@ static const NSString *testString = @"test";
     [super tearDown];
 }
 
-//MARK: Arrays
+#pragma mark - Arrays
 
-- (void) testArrayWriteSpeed {
-    [self measureBlock: ^{
+- (void)testArrayWriteSpeed {
+    [self measureBlock:^{
         [self generateArray];
     }];
 }
 
-- (void) testArrayFastEnumReadSpeed {
+- (void)testArrayFastEnumReadSpeed {
     NSMutableArray *testArray = [self generateArray];
-    
-    [self measureBlock: ^{
+
+    [self measureBlock:^{
         for (NSString *str in testArray) {
             NSString *const constant = str;
         }
     }];
 }
 
-- (void) testArrayByIndexReadSpeed {
+- (void)testArrayByIndexReadSpeed {
     NSMutableArray *testArray = [self generateArray];
-    
-    [self measureBlock: ^{
+
+    [self measureBlock:^{
         for (NSUInteger i = 0; i < testArray.count; i++) {
             NSString *const constant = testArray[i];
         }
     }];
 }
 
-- (void) testArrayByIndexDeleteSpeed {
+- (void)testArrayByIndexDeleteSpeed {
     NSMutableArray *testArray = [self generateArray];
-    
-    [self measureBlock: ^{
+
+    [self measureBlock:^{
         for (NSUInteger i = 0; i < testArray.count; i++) {
             [testArray removeObjectAtIndex:i];
         }
     }];
 }
 
-- (void) testArrayIndexOfSpeed {
+- (void)testArrayIndexOfSpeed {
     NSMutableArray *testArray = [self generateArray];
     NSString *const last = testArray.lastObject;
-    [self measureBlock: ^{
+    [self measureBlock:^{
         [testArray indexOfObject:last];
     }];
 }
 
-- (void) testArrayContainSpeed {
+- (void)testArrayContainSpeed {
     NSMutableArray *testArray = [self generateArray];
     NSString *const last = testArray.lastObject;
-    [self measureBlock: ^{
+    [self measureBlock:^{
         [testArray containsObject:last];
     }];
 }
@@ -91,15 +95,15 @@ static const NSString *testString = @"test";
 #pragma mark - Sets
 
 - (void)testSetWriteSpeed {
-    [self measureBlock: ^{
+    [self measureBlock:^{
         [self generateSet];
     }];
 }
 
 - (void)testSetFastEnumReadSpeed {
     NSMutableSet *testSet = [self generateSet];
-    
-    [self measureBlock: ^{
+
+    [self measureBlock:^{
         for (NSString *str in testSet) {
             NSString *const constant = str;
         }
@@ -109,7 +113,7 @@ static const NSString *testString = @"test";
 - (void)testSetFastEnumDeleteSpeed {
     NSMutableSet *testSet = [self generateSet];
     NSMutableSet *removeSet = [NSMutableSet new];
-    [self measureBlock: ^{
+    [self measureBlock:^{
         for (NSString *item in testSet) {
             [removeSet addObject:item];
         }
@@ -119,25 +123,25 @@ static const NSString *testString = @"test";
 
 - (void)testSetContainsSpeed {
     NSMutableSet *testSet = [self generateSet];
-    
+
     NSString *const toFound = [NSString stringWithFormat:@"%@%u", testString, iterationCount - 1];
-    [self measureBlock: ^{
+    [self measureBlock:^{
         [testSet containsObject:toFound];
     }];
 }
 
-//MARK: Dictionaries
+#pragma mark - Dictionaries
 
 - (void)testDictionaryWriteSpeed {
-    [self measureBlock: ^{
+    [self measureBlock:^{
         [self generateDictionary];
     }];
 }
 
 - (void)testDictionaryFastEnumReadSpeed {
     NSMutableDictionary *testDictionary = [self generateDictionary];
-    
-    [self measureBlock: ^{
+
+    [self measureBlock:^{
         for (NSString *value in testDictionary.allValues) {
             NSString *const constant = value;
         }
@@ -146,62 +150,153 @@ static const NSString *testString = @"test";
 
 - (void)testDictionaryByKeyReadSpeed {
     NSMutableDictionary *testDictionary = [self generateDictionary];
-    
-    [self measureBlock: ^{
+
+    [self measureBlock:^{
         for (NSUInteger i = 0; i < testDictionary.count; i++) {
-            NSString *const constant = testDictionary[[NSString stringWithFormat:@"%lu", (unsigned long)i]];
+            NSString *const constant = testDictionary[[NSString stringWithFormat:@"%lu", (unsigned long) i]];
         }
     }];
 }
 
 - (void)testDictionaryByKeyDeleteSpeed {
     NSMutableDictionary *testDictionary = [self generateDictionary];
-    
-    [self measureBlock: ^{
+
+    [self measureBlock:^{
         for (NSUInteger i = 0; i < testDictionary.count; i++) {
-            [testDictionary removeObjectForKey:[NSString stringWithFormat:@"%lu", (unsigned long)i]];
+            [testDictionary removeObjectForKey:[NSString stringWithFormat:@"%lu", (unsigned long) i]];
         }
     }];
 }
 
 - (void)testDictionaryContainSpeed {
     NSMutableDictionary *testDictionary = [self generateDictionary];
-    
+
     NSString *const toFound = [NSString stringWithFormat:@"%@%u", testString, iterationCount - 1];
-    [self measureBlock: ^{
+    [self measureBlock:^{
         [testDictionary.allValues containsObject:toFound];
     }];
 }
+
+#pragma mark -  LinkedLists
+
+- (void)testLinkedListWriteSpeed {
+    [self measureBlock:^{
+        [self generateLinkedList];
+    }];
+}
+
+- (void)testLinkedListFastEnumReadSpeed {
+    YALOptimizedLinkedList *testLinkedList = [self generateLinkedList];
+
+    [self measureBlock:^{
+        for (NSString *str in testLinkedList) {
+            NSString *constant = str;
+        }
+    }];
+}
+
+- (void)testLinkedListFastEnumDeleteSpeed {
+    YALOptimizedLinkedList *testLinkedList = [self generateLinkedList];
+
+    [self measureBlock:^{
+        for (NSString *item in testLinkedList) {
+            [testLinkedList removeFirstOccurenceOf:item];
+        }
+    }];
+}
+
+#pragma mark - Stacks
+
+- (void)testStackWriteSpeed {
+    [self measureBlock:^{
+        [self generateStack];
+    }];
+}
+
+- (void)testStackReadSpeed {
+    YALStack *testStack = [self generateStack];
+
+    [self measureBlock:^{
+        for (int i = 0; i < iterationCount; i++) {
+            NSString *constant = [testStack pop];
+        }
+    }];
+}
+
+#pragma mark - Queues
+
+- (void)testQueueWriteSpeed {
+    [self measureBlock:^{
+        [self generateQueue];
+    }];
+}
+
+- (void)testQueueReadSpeed {
+    YALQueue *testQueue = [self generateQueue];
+
+    [self measureBlock:^{
+        for (int i = 0; i < iterationCount; i++) {
+            NSString *constant = [testQueue dequeue];
+        }
+    }];
+}
+
 
 #pragma mark - Helper methods
 
 - (NSMutableArray *)generateArray {
     NSMutableArray *testArray = [NSMutableArray new];
     for (NSUInteger i = 0; i < iterationCount; i++) {
-        [testArray addObject:[NSString stringWithFormat:@"%@%lu", testString, (unsigned long)i]];
+        [testArray addObject:[NSString stringWithFormat:@"%@%lu", testString, (unsigned long) i]];
     }
-    
+
     return testArray;
 }
 
 - (NSMutableSet *)generateSet {
     NSMutableSet *testSet = [NSMutableSet new];
     for (NSUInteger i = 0; i < iterationCount; i++) {
-        [testSet addObject:[NSString stringWithFormat:@"%@%lu", testString, (unsigned long)i]];
+        [testSet addObject:[NSString stringWithFormat:@"%@%lu", testString, (unsigned long) i]];
     }
-    
+
     return testSet;
 }
 
 - (NSMutableDictionary *)generateDictionary {
-    NSMutableDictionary * testDictionary = [NSMutableDictionary new];
+    NSMutableDictionary *testDictionary = [NSMutableDictionary new];
     for (NSUInteger i = 0; i < iterationCount; i++) {
-        testDictionary[[NSString stringWithFormat:@"%lu", (unsigned long)i]] = [NSString stringWithFormat:@"%@%lu", testString, (unsigned long)i];
+        testDictionary[[NSString stringWithFormat:@"%lu", (unsigned long) i]] = [NSString stringWithFormat:@"%@%lu", testString, (unsigned long) i];
     }
-    
+
     return testDictionary;
 }
 
+- (YALOptimizedLinkedList *)generateLinkedList {
+    YALOptimizedLinkedList *testLinkedList = [YALOptimizedLinkedList listWithStartNode:nil];
+    for (int i = 0; i < iterationCount; i++) {
+        [testLinkedList add:[NSString stringWithFormat:@"%@%d", testString, i]];
+    }
+
+    return testLinkedList;
+}
+
+- (YALStack *)generateStack {
+    YALStack *testStack = [YALStack new];
+    for (int i = 0; i < iterationCount; i++) {
+        [testStack push:[NSString stringWithFormat:@"%@%d", testString, i]];
+    }
+
+    return testStack;
+}
+
+- (YALQueue *)generateQueue {
+    YALQueue *testQueue = [YALQueue new];
+    for (int i = 0; i < iterationCount; i++) {
+        [testQueue add:[NSString stringWithFormat:@"%@%d", testString, i]];
+    }
+
+    return testQueue;
+}
 
 
 @end
