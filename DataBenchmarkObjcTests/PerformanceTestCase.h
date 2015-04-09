@@ -6,7 +6,10 @@
 #import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
 
+static const NSString *testString = @"test";
+
 @interface PerformanceTestCase : XCTestCase
 
-- (void)performFunctionInBackground:(void (^)())block;
+- (void)measureInBackgroundForCode: (void(^)())block;
+
 @end

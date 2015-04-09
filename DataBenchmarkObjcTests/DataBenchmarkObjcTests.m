@@ -8,15 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "YALLinkedList.h"
-#import "YALOptimizedLinkedList.h"
-#import "YALStack.h"
-#import "YALQueue.h"
 #import "PerformanceTestCase.h"
 #import "YALRandom.h"
 
-static const NSInteger iterationCount = 10000;
-static const NSString *testString = @"test";
+static const NSInteger iterationCount = 1000000;
+
 
 @interface DataBenchmarkObjcTests : PerformanceTestCase
 
@@ -34,17 +30,19 @@ static const NSString *testString = @"test";
     [super tearDown];
 }
 
+
+
 #pragma mark - Arrays
 
 - (void)testArrayAdd {
-    [self performFunctionInBackground:^{
-        [self generateArray];
-    }];
+  [self measureInBackgroundForCode:^{
+      [self generateArray];
+  }];
 }
 
 - (void)testArrayUpdate {
     NSMutableArray *testArray = [self generateArray];
-    [self performFunctionInBackground:^{
+     [self measureInBackgroundForCode:^{
         for (NSUInteger i = 0; i < testArray.count; i++) {
             NSInteger randomInt = [YALRandom intFrom:0 to:iterationCount];
             testArray[i] = [NSString stringWithFormat:@"%@%u", testString, randomInt];
@@ -55,7 +53,7 @@ static const NSString *testString = @"test";
 - (void)testArrayReadFastEnum {
     NSMutableArray *testArray = [self generateArray];
 
-    [self performFunctionInBackground:^{
+     [self measureInBackgroundForCode:^{
         for (NSString *str in testArray) {
             NSString *const constant = str;
         }
@@ -65,7 +63,7 @@ static const NSString *testString = @"test";
 - (void)testArrayReadByIndex {
     NSMutableArray *testArray = [self generateArray];
 
-    [self performFunctionInBackground:^{
+     [self measureInBackgroundForCode:^{
         for (NSUInteger i = 0; i < testArray.count; i++) {
             NSString *const constant = testArray[i];
         }
@@ -75,7 +73,7 @@ static const NSString *testString = @"test";
 - (void)testArrayDeleteByIndex {
     NSMutableArray *testArray = [self generateArray];
 
-    [self performFunctionInBackground:^{
+     [self measureInBackgroundForCode:^{
         for (NSUInteger i = 0; i < testArray.count; i++) {
             [testArray removeObjectAtIndex:i];
         }
@@ -85,7 +83,7 @@ static const NSString *testString = @"test";
 - (void)testArrayFindByIndex {
     NSMutableArray *testArray = [self generateArray];
     NSString *const last = testArray.lastObject;
-    [self performFunctionInBackground:^{
+     [self measureInBackgroundForCode:^{
         [testArray indexOfObject:last];
     }];
 }
@@ -93,7 +91,7 @@ static const NSString *testString = @"test";
 - (void)testArrayCheckContain {
     NSMutableArray *testArray = [self generateArray];
     NSString *const last = testArray.lastObject;
-    [self performFunctionInBackground:^{
+     [self measureInBackgroundForCode:^{
         [testArray containsObject:last];
     }];
 }
@@ -102,7 +100,7 @@ static const NSString *testString = @"test";
 #pragma mark - Sets
 
 - (void)testSetAdd {
-    [self performFunctionInBackground:^{
+      [self measureInBackgroundForCode:^{
         [self generateSet];
     }];
 }
@@ -110,7 +108,7 @@ static const NSString *testString = @"test";
 - (void)testSetFastEnumRead {
     NSMutableSet *testSet = [self generateSet];
 
-    [self performFunctionInBackground:^{
+     [self measureInBackgroundForCode:^{
         for (NSString *str in testSet) {
             NSString *const constant = str;
         }
@@ -120,8 +118,8 @@ static const NSString *testString = @"test";
 - (void)testSetDelete {
     NSMutableSet *testSet = [self generateSet];
     NSMutableSet *removeSet = [NSMutableSet new];
-    [self performFunctionInBackground:^{
-        for (NSString *item in testSet) {
+      [self measureInBackgroundForCode:^{
+          for (NSString *item in testSet) {
             [removeSet addObject:item];
         }
         [testSet minusSet:removeSet];
@@ -132,7 +130,7 @@ static const NSString *testString = @"test";
     NSMutableSet *testSet = [self generateSet];
 
     NSString *const toFound = [NSString stringWithFormat:@"%@%u", testString, iterationCount - 1];
-    [self performFunctionInBackground:^{
+     [self measureInBackgroundForCode:^{
         [testSet containsObject:toFound];
     }];
 }
@@ -140,7 +138,7 @@ static const NSString *testString = @"test";
 #pragma mark - Dictionaries
 
 - (void)testDictionaryAdd {
-    [self performFunctionInBackground:^{
+     [self measureInBackgroundForCode:^{
         [self generateDictionary];
     }];
 }
@@ -151,7 +149,7 @@ static const NSString *testString = @"test";
     for (NSInteger i = 0; i < iterationCount; i++) {
         randomDictionary[[NSString stringWithFormat:@"%d", i]] = [NSString stringWithFormat:@"%@%u", testString, [YALRandom intFrom:0 to:iterationCount]];
     }
-    [self performFunctionInBackground:^() {
+     [self measureInBackgroundForCode:^{
         for (NSString *key in testDictionary.allKeys) {
             testDictionary[key] = randomDictionary[key];
         }
@@ -161,7 +159,7 @@ static const NSString *testString = @"test";
 - (void)testDictionaryReadFastEnum {
     NSMutableDictionary *testDictionary = [self generateDictionary];
 
-    [self performFunctionInBackground:^{
+      [self measureInBackgroundForCode:^{
         for (NSString *value in testDictionary.allValues) {
             NSString *const constant = value;
         }
@@ -171,7 +169,7 @@ static const NSString *testString = @"test";
 - (void)testDictionaryReadByKey {
     NSMutableDictionary *testDictionary = [self generateDictionary];
 
-    [self performFunctionInBackground:^{
+      [self measureInBackgroundForCode:^{
         for (NSUInteger i = 0; i < testDictionary.count; i++) {
             NSString *const constant = testDictionary[[NSString stringWithFormat:@"%lu", (unsigned long) i]];
         }
@@ -181,7 +179,7 @@ static const NSString *testString = @"test";
 - (void)testDictionaryDeleteByKey {
     NSMutableDictionary *testDictionary = [self generateDictionary];
 
-    [self performFunctionInBackground:^{
+     [self measureInBackgroundForCode:^{
         for (NSUInteger i = 0; i < testDictionary.count; i++) {
             [testDictionary removeObjectForKey:[NSString stringWithFormat:@"%lu", (unsigned long) i]];
         }
@@ -192,77 +190,10 @@ static const NSString *testString = @"test";
     NSMutableDictionary *testDictionary = [self generateDictionary];
 
     NSString *const toFound = [NSString stringWithFormat:@"%@%u", testString, iterationCount - 1];
-    [self performFunctionInBackground:^{
+     [self measureInBackgroundForCode:^{
         [testDictionary.allValues containsObject:toFound];
     }];
 }
-
-#pragma mark -  LinkedLists
-
-/* TODO crash in dealloc if more than 10000 iterations
-- (void)testLinkedListAdd {
-    [self performFunctionInBackground:^{
-        [self generateLinkedList];
-    }];
-}
-
-- (void)testLinkedListFastEnumRead {
-    YALOptimizedLinkedList *testLinkedList = [self generateLinkedList];
-
-    [self performFunctionInBackground:^{
-        for (NSString *str in testLinkedList) {
-            NSString *constant = str;
-        }
-    }];
-}*/
-
-- (void)testLinkedListFastEnumDelete {
-    YALOptimizedLinkedList *testLinkedList = [self generateLinkedList];
-
-    [self performFunctionInBackground:^{
-        for (NSString *item in testLinkedList) {
-            [testLinkedList removeFirstOccurenceOf:item];
-        }
-    }];
-}
-
-#pragma mark - Stacks
-
-/* TODO crash in dealloc if more than 10000 iterations
-- (void)testStackWriteSpeed {
-    [self performFunctionInBackground:^{
-        [self generateStack];
-    }];
-}
- 
-- (void)testStackReadSpeed {
-    YALStack *testStack = [self generateStack];
-
-    [self performFunctionInBackground:^{
-        for (int i = 0; i < iterationCount; i++) {
-            NSString *constant = [testStack pop];
-        }
-    }];
-} */
-
-#pragma mark - Queues
-/* TODO crash in dealloc if more than 10000 iterations
-- (void)testQueueWriteSpeed {
-   [self performFunctionInBackground:^{
-        [self generateQueue];
-    }];
-}
- 
-- (void)testQueueReadSpeed {
-    YALQueue *testQueue = [self generateQueue];
-
-  [self performFunctionInBackground:^{
-        for (int i = 0; i < iterationCount; i++) {
-            NSString *constant = [testQueue dequeue];
-        }
-    }];
-} */
-
 
 #pragma mark - Helper methods
 
@@ -291,33 +222,6 @@ static const NSString *testString = @"test";
     }
 
     return testDictionary;
-}
-
-- (YALOptimizedLinkedList *)generateLinkedList {
-    YALOptimizedLinkedList *testLinkedList = [YALOptimizedLinkedList listWithStartNode:nil];
-    for (int i = 0; i < iterationCount; i++) {
-        [testLinkedList add:[NSString stringWithFormat:@"%@%d", testString, i]];
-    }
-
-    return testLinkedList;
-}
-
-- (YALStack *)generateStack {
-    YALStack *testStack = [YALStack new];
-    for (int i = 0; i < iterationCount; i++) {
-        [testStack push:[NSString stringWithFormat:@"%@%d", testString, i]];
-    }
-
-    return testStack;
-}
-
-- (YALQueue *)generateQueue {
-    YALQueue *testQueue = [YALQueue new];
-    for (int i = 0; i < iterationCount; i++) {
-        [testQueue add:[NSString stringWithFormat:@"%@%d", testString, i]];
-    }
-
-    return testQueue;
 }
 
 
