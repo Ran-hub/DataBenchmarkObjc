@@ -7,26 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		79B540D3DDA41A05454B46E2 /* PerformanceTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B5464BED463502FE59FE48 /* PerformanceTestCase.m */; };
 		79B541A714369927B3560452 /* YALLinkedNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B54CE7A0D757F033C6B8C7 /* YALLinkedNode.m */; };
 		79B5426DC59B242B3895E32C /* YALStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B542367277017E08DC38BF /* YALStack.m */; };
 		79B54279339CC91A0732773F /* YALBinaryTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B54140F933AFC34630D34E /* YALBinaryTreeNode.m */; };
-		79B543BA0098FD186B72E155 /* PerformanceTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B54D403352766F1F9C5320 /* PerformanceTestCase.m */; };
 		79B543F1B250CCCD5C8470E1 /* YALBinaryTreeNode+Rotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B54A67A8FA6295A67C60B7 /* YALBinaryTreeNode+Rotation.m */; };
 		79B544F8BA578110AE7B3EC0 /* YALNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B54F6E7BAD4B7B65D0C2D6 /* YALNode.m */; };
+		79B5452F0CE61D2A5C9D810A /* DataBenchmarkObjcTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B546B1E1050E2EC9AA423F /* DataBenchmarkObjcTests.m */; };
 		79B5465D0638D2C716274A1F /* DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B548F75767B4BCB03EC173 /* DataStorage.m */; };
+		79B5493660DD0C8A46BFED90 /* SetHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B54AEDB16C1FD3C76AF0EA /* SetHelper.m */; };
+		79B54A305E3B162D4294ADDF /* ArrayHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B54A8A836BA38EAE283C52 /* ArrayHelper.m */; };
 		79B54AF3CF03C79C504C974B /* YALLinkedList.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B540EF237A6804D4B2CBDD /* YALLinkedList.m */; };
 		79B54B12069BED875FB04B89 /* YALRandom.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B542C9F5E36F3C2D481AAC /* YALRandom.m */; };
 		79B54C70BDD1BC604F9C7FC5 /* YALOptimizedLinkedList.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B541BA7F3085FD1EC719E5 /* YALOptimizedLinkedList.m */; };
+		79B54CE0C377007E51F48C52 /* DictionaryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B543DA492D844B7C7FDD05 /* DictionaryHelper.m */; };
 		79B54E1DBD324E9CE930899B /* YALQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B545639EF9C1A4B15C91F3 /* YALQueue.m */; };
 		79B54FD00FA38CDC182216D9 /* YALBinarySearchTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B54F364EA42B6F293015A4 /* YALBinarySearchTree.m */; };
-		856876311ACD2A31008B25BD /* DataBenchmarkObjcTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 856876301ACD2A31008B25BD /* DataBenchmarkObjcTests.m */; };
+		8564EAE61ADEB41500BC1DB1 /* CHCSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8564EAE51ADEB41500BC1DB1 /* CHCSVParser.m */; };
 		92F5D58A1AD71488002B426B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F5D5891AD71488002B426B /* main.m */; };
 		92F5D58D1AD71488002B426B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F5D58C1AD71488002B426B /* AppDelegate.m */; };
 		92F5D5901AD71488002B426B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F5D58F1AD71488002B426B /* ViewController.m */; };
 		92F5D5931AD71488002B426B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92F5D5911AD71488002B426B /* Main.storyboard */; };
 		92F5D5951AD71488002B426B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92F5D5941AD71488002B426B /* Images.xcassets */; };
 		92F5D5981AD71488002B426B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92F5D5961AD71488002B426B /* LaunchScreen.xib */; };
-		92F5D5AE1AD72A5D002B426B /* ComplexDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F5D5AD1AD72A5D002B426B /* ComplexDataTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,31 +45,39 @@
 /* Begin PBXFileReference section */
 		79B540067F57E59C7F329F73 /* YALQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YALQueue.h; sourceTree = "<group>"; };
 		79B540300915234CDF4D72DC /* YALLinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YALLinkedList.h; sourceTree = "<group>"; };
-		79B540CA10F08890F5EDC3CE /* PerformanceTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerformanceTestCase.h; sourceTree = "<group>"; };
 		79B540EF237A6804D4B2CBDD /* YALLinkedList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YALLinkedList.m; sourceTree = "<group>"; };
 		79B54140F933AFC34630D34E /* YALBinaryTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YALBinaryTreeNode.m; sourceTree = "<group>"; };
 		79B54163CAFB82091A80FDFB /* YALLinkedNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YALLinkedNode.h; sourceTree = "<group>"; };
 		79B541BA7F3085FD1EC719E5 /* YALOptimizedLinkedList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YALOptimizedLinkedList.m; sourceTree = "<group>"; };
 		79B542367277017E08DC38BF /* YALStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YALStack.m; sourceTree = "<group>"; };
 		79B542C9F5E36F3C2D481AAC /* YALRandom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YALRandom.m; sourceTree = "<group>"; };
+		79B543DA492D844B7C7FDD05 /* DictionaryHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionaryHelper.m; sourceTree = "<group>"; };
+		79B5447CF46A8EA443019CEA /* SetHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetHelper.h; sourceTree = "<group>"; };
 		79B545639EF9C1A4B15C91F3 /* YALQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YALQueue.m; sourceTree = "<group>"; };
 		79B545AB20F79BE895D752A9 /* YALOptimizedLinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YALOptimizedLinkedList.h; sourceTree = "<group>"; };
+		79B5464BED463502FE59FE48 /* PerformanceTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerformanceTestCase.m; sourceTree = "<group>"; };
+		79B546B1E1050E2EC9AA423F /* DataBenchmarkObjcTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBenchmarkObjcTests.m; sourceTree = "<group>"; };
 		79B546F6009E810728400BC9 /* YALStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YALStack.h; sourceTree = "<group>"; };
 		79B548F75767B4BCB03EC173 /* DataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataStorage.m; sourceTree = "<group>"; };
+		79B549517DCDE2C106A418EC /* ArrayHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayHelper.h; sourceTree = "<group>"; };
+		79B549A3A18E3558394DA3A2 /* PerformanceTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerformanceTestCase.h; sourceTree = "<group>"; };
 		79B54A67A8FA6295A67C60B7 /* YALBinaryTreeNode+Rotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YALBinaryTreeNode+Rotation.m"; sourceTree = "<group>"; };
+		79B54A8A836BA38EAE283C52 /* ArrayHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArrayHelper.m; sourceTree = "<group>"; };
+		79B54ACDC827977648DD7F2B /* DictionaryHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionaryHelper.h; sourceTree = "<group>"; };
+		79B54AEDB16C1FD3C76AF0EA /* SetHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetHelper.m; sourceTree = "<group>"; };
 		79B54BA427CBF816F74A8C2D /* YALNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YALNode.h; sourceTree = "<group>"; };
 		79B54BB970B4CE44361014F3 /* YALBinaryTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YALBinaryTreeNode.h; sourceTree = "<group>"; };
 		79B54C34E609252A2A0DE89F /* DataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStorage.h; sourceTree = "<group>"; };
 		79B54CE7A0D757F033C6B8C7 /* YALLinkedNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YALLinkedNode.m; sourceTree = "<group>"; };
 		79B54D172AB4200ED1920FD6 /* YALBinarySearchTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YALBinarySearchTree.h; sourceTree = "<group>"; };
-		79B54D403352766F1F9C5320 /* PerformanceTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerformanceTestCase.m; sourceTree = "<group>"; };
 		79B54E983D0F9CE0E66A2A33 /* YALRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YALRandom.h; sourceTree = "<group>"; };
 		79B54F364EA42B6F293015A4 /* YALBinarySearchTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YALBinarySearchTree.m; sourceTree = "<group>"; };
 		79B54F6E7BAD4B7B65D0C2D6 /* YALNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YALNode.m; sourceTree = "<group>"; };
 		79B54F7B4F4B9AE38586884C /* YALBinaryTreeNode+Rotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YALBinaryTreeNode+Rotation.h"; sourceTree = "<group>"; };
+		8564EAE41ADEB41500BC1DB1 /* CHCSVParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCSVParser.h; sourceTree = "<group>"; };
+		8564EAE51ADEB41500BC1DB1 /* CHCSVParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCSVParser.m; sourceTree = "<group>"; };
 		8568762A1ACD2A31008B25BD /* DataBenchmarkObjcTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataBenchmarkObjcTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8568762F1ACD2A31008B25BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		856876301ACD2A31008B25BD /* DataBenchmarkObjcTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataBenchmarkObjcTests.m; sourceTree = "<group>"; };
 		92F5D5851AD71488002B426B /* TestTarget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestTarget.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92F5D5881AD71488002B426B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		92F5D5891AD71488002B426B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -77,7 +88,6 @@
 		92F5D5921AD71488002B426B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		92F5D5941AD71488002B426B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		92F5D5971AD71488002B426B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		92F5D5AD1AD72A5D002B426B /* ComplexDataTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComplexDataTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +108,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		79B544F54759DBA8E2DB718D /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				79B549A3A18E3558394DA3A2 /* PerformanceTestCase.h */,
+				79B5464BED463502FE59FE48 /* PerformanceTestCase.m */,
+				79B546B1E1050E2EC9AA423F /* DataBenchmarkObjcTests.m */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		79B54B530C69F84B83F7C7C3 /* DataStructures */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +152,28 @@
 			path = Nodes;
 			sourceTree = "<group>";
 		};
+		79B54F972018AFA2BED4E142 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				79B54A8A836BA38EAE283C52 /* ArrayHelper.m */,
+				79B549517DCDE2C106A418EC /* ArrayHelper.h */,
+				79B54AEDB16C1FD3C76AF0EA /* SetHelper.m */,
+				79B5447CF46A8EA443019CEA /* SetHelper.h */,
+				79B543DA492D844B7C7FDD05 /* DictionaryHelper.m */,
+				79B54ACDC827977648DD7F2B /* DictionaryHelper.h */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		8564EAE71ADEB41900BC1DB1 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				8564EAE41ADEB41500BC1DB1 /* CHCSVParser.h */,
+				8564EAE51ADEB41500BC1DB1 /* CHCSVParser.m */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
 		856876081ACD2A31008B25BD = {
 			isa = PBXGroup;
 			children = (
@@ -153,15 +195,14 @@
 		8568762D1ACD2A31008B25BD /* DataBenchmarkObjcTests */ = {
 			isa = PBXGroup;
 			children = (
-				856876301ACD2A31008B25BD /* DataBenchmarkObjcTests.m */,
-				92F5D5AD1AD72A5D002B426B /* ComplexDataTests.m */,
+				8564EAE71ADEB41900BC1DB1 /* Libraries */,
 				8568762E1ACD2A31008B25BD /* Supporting Files */,
 				79B54B9D47758DEA2EA5D703 /* Nodes */,
 				79B54B530C69F84B83F7C7C3 /* DataStructures */,
-				79B54D403352766F1F9C5320 /* PerformanceTestCase.m */,
-				79B540CA10F08890F5EDC3CE /* PerformanceTestCase.h */,
 				79B542C9F5E36F3C2D481AAC /* YALRandom.m */,
 				79B54E983D0F9CE0E66A2A33 /* YALRandom.h */,
+				79B544F54759DBA8E2DB718D /* Tests */,
+				79B54F972018AFA2BED4E142 /* Helpers */,
 			);
 			path = DataBenchmarkObjcTests;
 			sourceTree = "<group>";
@@ -298,7 +339,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				856876311ACD2A31008B25BD /* DataBenchmarkObjcTests.m in Sources */,
+				8564EAE61ADEB41500BC1DB1 /* CHCSVParser.m in Sources */,
 				79B544F8BA578110AE7B3EC0 /* YALNode.m in Sources */,
 				79B541A714369927B3560452 /* YALLinkedNode.m in Sources */,
 				79B54C70BDD1BC604F9C7FC5 /* YALOptimizedLinkedList.m in Sources */,
@@ -306,12 +347,15 @@
 				79B5426DC59B242B3895E32C /* YALStack.m in Sources */,
 				79B54E1DBD324E9CE930899B /* YALQueue.m in Sources */,
 				79B54279339CC91A0732773F /* YALBinaryTreeNode.m in Sources */,
-				92F5D5AE1AD72A5D002B426B /* ComplexDataTests.m in Sources */,
 				79B5465D0638D2C716274A1F /* DataStorage.m in Sources */,
 				79B543F1B250CCCD5C8470E1 /* YALBinaryTreeNode+Rotation.m in Sources */,
 				79B54FD00FA38CDC182216D9 /* YALBinarySearchTree.m in Sources */,
-				79B543BA0098FD186B72E155 /* PerformanceTestCase.m in Sources */,
 				79B54B12069BED875FB04B89 /* YALRandom.m in Sources */,
+				79B540D3DDA41A05454B46E2 /* PerformanceTestCase.m in Sources */,
+				79B5452F0CE61D2A5C9D810A /* DataBenchmarkObjcTests.m in Sources */,
+				79B54A305E3B162D4294ADDF /* ArrayHelper.m in Sources */,
+				79B5493660DD0C8A46BFED90 /* SetHelper.m in Sources */,
+				79B54CE0C377007E51F48C52 /* DictionaryHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +567,7 @@
 				92F5D5A61AD71488002B426B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

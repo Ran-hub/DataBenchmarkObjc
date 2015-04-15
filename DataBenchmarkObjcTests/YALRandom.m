@@ -8,7 +8,7 @@
 
 @implementation YALRandom
 
-+ (int)intFrom: (int)from to: (int)to {
++ (NSUInteger)intFrom: (int)from to: (int)to {
     return (arc4random_uniform((u_int32_t) (to - from + 1)) + from);
 }
 

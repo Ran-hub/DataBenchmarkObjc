@@ -7,7 +7,7 @@
 
 
 @interface YALRandom : NSObject
-+ (int)intFrom:(int)from to:(int)to;
++ (NSUInteger)intFrom:(int)from to:(int)to;
 
 + (double)doubleFrom:(double)from to:(double)to;
 
