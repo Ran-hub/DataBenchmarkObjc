@@ -11,37 +11,76 @@
 #import "PerformanceTestCase.h"
 #import "ArrayHelper.h"
 #import "YALRandom.h"
+#import "SetHelper.h"
+#import "DictionaryHelper.h"
 
-static const NSInteger iterationCount = 1000000;
+static const NSInteger maxRandomNumber = 100000;
 
+static NSMutableArray *(^generateArrayBlock)(NSInteger);
+
+static NSNumber *(^randomArrayIndexBlock)(NSMutableArray *);
+
+static NSString *(^randomArrayElementBlock)(NSMutableArray *, NSNumber *);
+
+static NSMutableSet *(^generateSetBlock)(NSInteger);
+
+static NSNumber *(^randomSetIndexBlock)(NSMutableSet *);
+
+static NSString *(^randomSetElementBlock)(NSMutableSet *, NSNumber *);
+
+static NSMutableDictionary *(^generateDictionaryBlock)(NSInteger);
+
+static NSString *(^randomDictionaryIndexBlock)(NSMutableDictionary *);
+
+static NSString *(^randomDictionaryElementBlock)(NSMutableDictionary *, NSString *);
+
+NSString *createRandomString();
 
 @interface DataBenchmarkObjcTests : PerformanceTestCase
-
-@property (nonatomic, copy) id (^generateArrayBlock)(NSInteger );
-@property (nonatomic, copy) NSNumber * (^randomArrayIndexBlock)(NSMutableArray *);
-@property (nonatomic, copy) NSString * (^randomArrayElementBlock)(NSMutableArray *, NSNumber *);
 
 @end
 
 @implementation DataBenchmarkObjcTests
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.generateArrayBlock = ^NSMutableArray *(NSInteger elementCount) {
-            return [ArrayHelper generateArray:(NSUInteger) elementCount];
-        };
++ (void)setUp {
+    //Array
+    generateArrayBlock = ^NSMutableArray *(NSInteger elementCount) {
+        return [ArrayHelper generateArray:(NSUInteger) elementCount];
+    };
 
-        self.randomArrayIndexBlock = ^NSNumber *(NSMutableArray * array) {
-            return @([ArrayHelper randomArrayIndex:array]);
-        };
+    randomArrayIndexBlock = ^NSNumber *(NSMutableArray *array) {
+        return @([ArrayHelper randomArrayIndex:array]);
+    };
 
-        self.randomArrayElementBlock = ^NSString *(NSMutableArray * array, NSNumber *index) {
-            return array[[index unsignedIntegerValue]];
-        };
-    }
+    randomArrayElementBlock = ^NSString *(NSMutableArray *array, NSNumber *index) {
+        return array[[index unsignedIntegerValue]];
+    };
 
-    return self;
+    //Set
+    generateSetBlock = ^NSMutableSet *(NSInteger elementCount) {
+        return [SetHelper generateSet:(NSUInteger) elementCount];
+    };
+
+    randomSetIndexBlock = ^NSNumber *(NSMutableSet *set) {
+        return @([SetHelper randomSetIndex:set]);
+    };
+
+    randomSetElementBlock = ^NSString *(NSMutableSet *set, NSNumber *index) {
+        return [SetHelper randomSetElement:set randomIndex:[index unsignedIntegerValue]];
+    };
+
+    //Dictionary
+    generateDictionaryBlock = ^NSMutableDictionary *(NSInteger elementCount) {
+        return [DictionaryHelper generateDictionary:(NSUInteger) elementCount];
+    };
+
+    randomDictionaryIndexBlock = ^NSString *(NSMutableDictionary *dictionary) {
+        return [DictionaryHelper randomDictionaryIndex:dictionary];
+    };
+
+    randomDictionaryElementBlock = ^NSString *(NSMutableDictionary *dictionary, NSString *index) {
+        return [DictionaryHelper randomDictionaryElement:dictionary randomIndex:index];
+    };
 }
 
 
@@ -56,141 +95,142 @@ static const NSInteger iterationCount = 1000000;
 }
 
 
-
 #pragma mark - Arrays
 
 
 - (void)testArrayAdd {
-    [self performTimeTestWithPrepareBlock:self.generateArrayBlock
+    [self performTimeTestWithPrepareBlock:generateArrayBlock
                            operationBlock:^(NSMutableArray *array) {
-                               [array addObject:[NSString stringWithFormat:@"%@%d", testString, [YALRandom intFrom:0 to:iterationCount]]];
-                           } structureName:@"Array" operationName:@"Add"];
+                               [array addObject:createRandomString()];
+                           }
+                            structureName:@"Array" operationName:@"Add"];
 }
 
 - (void)testArrayUpdate {
-    [self performTimeTestWithPrepareBlock:self.generateArrayBlock
+    [self performTimeTestWithPrepareBlock:generateArrayBlock
                            operationBlock:^(NSMutableArray *array, NSNumber *randomIndex, NSString *randomElement) {
-                               if (array.count == 0) {
-                                   return;
-                               }
-                               array[[randomIndex unsignedIntegerValue]] = [NSString stringWithFormat:@"%@%d", testString, [YALRandom intFrom:0 to:iterationCount]];
+                               array[[randomIndex unsignedIntegerValue]] = createRandomString();
                            }
-                         randomIndexBlock:self.randomArrayIndexBlock
-                       randomElementBlock:self.randomArrayElementBlock
+                         randomIndexBlock:randomArrayIndexBlock
+                       randomElementBlock:randomArrayElementBlock
                             structureName:@"Array" operationName:@"UpdateRandom"];
 }
 
 - (void)testArrayByIndexRead {
-    [self performTimeTestWithPrepareBlock:self.generateArrayBlock operationBlock:^(NSMutableArray *array, NSNumber *randomIndex, NSString *randomElement) {
-                if (array.count == 0) {
-                    return;
-                }
+    [self performTimeTestWithPrepareBlock:generateArrayBlock operationBlock:^(NSMutableArray *array, NSNumber *randomIndex, NSString *randomElement) {
                 NSString *constant = array[[randomIndex unsignedIntegerValue]];
-            }            randomIndexBlock:self.randomArrayIndexBlock
-                       randomElementBlock:self.randomArrayElementBlock
+            }            randomIndexBlock:randomArrayIndexBlock
+                       randomElementBlock:randomArrayElementBlock
                             structureName:@"Array" operationName:@"ReadRandom"];
 }
 
--(void)testArrayByIndexDelete {
-    [self performTimeTestWithPrepareBlock:self.generateArrayBlock
+- (void)testArrayByIndexDelete {
+    [self performTimeTestWithPrepareBlock:generateArrayBlock
                            operationBlock:^(NSMutableArray *array, NSNumber *randomIndex, NSString *randomElement) {
-        if (array.count == 0) {
-            return;
-        }
-        [array removeAtIndex: randomIndex] ];
-    }, randomIndexBlock: ArrayHelper.randomArrayIndex, randomElementBlock: ArrayHelper.randomArrayElement, structureName: "Array", operationName: "DeleteRandom")
+                               [array removeObjectAtIndex:[randomIndex unsignedIntegerValue]];
+                           }
+                         randomIndexBlock:randomArrayIndexBlock
+                       randomElementBlock:randomArrayElementBlock
+                            structureName:@"Array" operationName:@"DeleteRandom"];
 
 }
 
--(void)testArrayContains {
-    [self performTimeTestWithPrepareBlock:self.generateArrayBlock
+- (void)testArrayContains {
+    [self performTimeTestWithPrepareBlock:generateArrayBlock
                            operationBlock:^(NSMutableArray *array, NSNumber *randomIndex, NSString *randomElement) {
-        if (array.count == 0) {
-            return
-        }
-        let constant = contains(array, randomElement!)
-    }, randomIndexBlock: ArrayHelper.randomArrayIndex, randomElementBlock: ArrayHelper.randomArrayElement, structureName: "Array", operationName: "ContainsRandom")
+                               BOOL constant = [array containsObject:randomElement];
+                           }
+                         randomIndexBlock:randomArrayIndexBlock
+                       randomElementBlock:randomArrayElementBlock
+                            structureName:@"Array" operationName:@"ContainsRandom"];
 
 }
 
 #pragma mark - Sets
 
 
--(void)testSetAdd {
-    self.performTimeTest(SetHelper.generateSet, operationBlock: { (var set: Set<String>) -> () in
-        set.insert(testString + String(Random.rndInt(0, to: iterationCount)))
-    }, structureName: "Set", operationName: "Add")
+- (void)testSetAdd {
+    [self performTimeTestWithPrepareBlock:generateSetBlock
+                           operationBlock:^(NSMutableSet *set) {
+                               [set addObject:createRandomString()];
+                           }
+                            structureName:@"Set" operationName:@"Add"];
 }
 
--(void)testSetDelete {
-    self.performTimeTest(SetHelper.generateSet, operationBlock: {
-        (var set: Set<String>, randomIndex: Int?, randomElement: String?) -> () in
-        if (set.count == 0) {
-            return
-        }
-        set.remove(randomElement!)
-    }, randomIndexBlock: SetHelper.randomSetIndex, randomElementBlock: SetHelper.randomSetElement, structureName: "Set", operationName: "DeleteRandom")
+- (void)testSetDelete {
+    [self performTimeTestWithPrepareBlock:generateSetBlock
+                           operationBlock:^(NSMutableSet *set, NSNumber *randomIndex, NSString *randomElement) {
+                               [set removeObject:randomElement];
+                           }
+                         randomIndexBlock:randomSetIndexBlock
+                       randomElementBlock:randomSetElementBlock
+                            structureName:@"Set" operationName:@"DeleteRandom"];
 }
 
--(void)testSetCheckContain {
-    self.performTimeTest(SetHelper.generateSet, operationBlock: {
-        (var set: Set<String>, randomIndex: Int?, randomElement: String?) -> () in
-        if (set.count == 0) {
-            return
-        }
-        let constant = contains(set, randomElement!)
-    }, randomIndexBlock: SetHelper.randomSetIndex, randomElementBlock: SetHelper.randomSetElement, structureName: "Set", operationName: "ContainsRandom")
-}}
+- (void)testSetCheckContain {
+    [self performTimeTestWithPrepareBlock:generateSetBlock
+                           operationBlock:^(NSMutableSet *set, NSNumber *randomIndex, NSString *randomElement) {
+                               BOOL constant = [set containsObject:randomElement];
+                           }
+                         randomIndexBlock:randomSetIndexBlock
+                       randomElementBlock:randomSetElementBlock
+                            structureName:@"Set" operationName:@"ContainsRandom"];
+}
 
 #pragma mark - Dictionaries
 
--(void)testDictionaryAdd {
-    self.performTimeTest(DictionaryHelper.generateDictionary, operationBlock: { (var dict: [String: String]) -> () in
-        let uniqueKey = testString + String(dict.count)
-        dict[uniqueKey] = (testString + String(Random.rndInt(0, to: iterationCount)))
-    }, structureName: "Dictionary", operationName: "Add")
+- (void)testDictionaryAdd {
+    [self performTimeTestWithPrepareBlock:generateDictionaryBlock
+                           operationBlock:^(NSMutableDictionary *dict) {
+                               NSString *const uniqueKey = [testString stringByAppendingFormat:@"%d", dict.count];
+                               dict[uniqueKey] = createRandomString();
+                           }
+                            structureName:@"Dictionary" operationName:@"Add"];
 }
 
--(void)testDictionaryUpdate {
-    self.performTimeTest(DictionaryHelper.generateDictionary, operationBlock: {
-        (var dictionary: [String: String], randomIndex: String?, randomElement: String?) -> () in
-        if (dictionary.count == 0) {
-            return
-        }
-        dictionary[randomIndex!] = (testString + String(Random.rndInt(0, to: iterationCount)))
-    }, randomIndexBlock: DictionaryHelper.randomDictionaryIndex, randomElementBlock: DictionaryHelper.randomDictionaryElement, structureName: "Dictionary", operationName: "UpdateRandom")
+- (void)testDictionaryUpdate {
+    [self performTimeTestWithPrepareBlock:generateDictionaryBlock
+                           operationBlock:^(NSMutableDictionary *dictionary, NSNumber *randomIndex, NSString *randomElement) {
+                               dictionary[randomIndex] = createRandomString();
+                           }
+                         randomIndexBlock:randomDictionaryIndexBlock
+                       randomElementBlock:randomDictionaryElementBlock
+                            structureName:@"Dictionary" operationName:@"UpdateRandom"];
 }
 
--(void)testDictionaryReadByKey {
-    self.performTimeTest(DictionaryHelper.generateDictionary, operationBlock: {
-        (var dictionary: [String: String], randomIndex: String?, randomElement: String?) -> () in
-        if (dictionary.count == 0) {
-            return
-        }
-        let constant = dictionary[randomIndex!]
-    }, randomIndexBlock: DictionaryHelper.randomDictionaryIndex, randomElementBlock: DictionaryHelper.randomDictionaryElement, structureName: "Dictionary", operationName: "ReadRandom")
+- (void)testDictionaryReadByKey {
+    [self performTimeTestWithPrepareBlock:generateDictionaryBlock
+                           operationBlock:^(NSMutableDictionary *dictionary, NSNumber *randomIndex, NSString *randomElement) {
+                               NSString *const constant = dictionary[randomIndex];
+                           }
+                         randomIndexBlock:randomDictionaryIndexBlock
+                       randomElementBlock:randomDictionaryElementBlock
+                            structureName:@"Dictionary" operationName:@"ReadRandom"];
 }
 
--(void)testDictionaryDeleteByKey {
-    self.performTimeTest(DictionaryHelper.generateDictionary, operationBlock: {
-        (var dictionary: [String: String], randomIndex: String?, randomElement: String?) -> () in
-        if (dictionary.count == 0) {
-            return
-        }
-        dictionary.removeValueForKey(randomIndex!)
-    }, randomIndexBlock: DictionaryHelper.randomDictionaryIndex, randomElementBlock: DictionaryHelper.randomDictionaryElement, structureName: "Dictionary", operationName: "DeleteRandom")
+- (void)testDictionaryDeleteByKey {
+    [self performTimeTestWithPrepareBlock:generateDictionaryBlock
+                           operationBlock:^(NSMutableDictionary *dictionary, NSString *randomIndex, NSString *randomElement) {
+                               [dictionary removeObjectForKey:randomIndex];
+                           }
+                         randomIndexBlock:randomDictionaryIndexBlock
+                       randomElementBlock:randomDictionaryElementBlock
+                            structureName:@"Dictionary" operationName:@"DeleteRandom"];
 }
 
--(void)testDictionaryCheckContain {
-    self.performTimeTest(DictionaryHelper.generateDictionary, operationBlock: {
-        (var dictionary: [String: String], randomIndex: String?, randomElement: String?) -> () in
-        if (dictionary.count == 0) {
-            return
-        }
-        contains(dictionary.values, randomElement!)
-    }, randomIndexBlock: DictionaryHelper.randomDictionaryIndex, randomElementBlock: DictionaryHelper.randomDictionaryElement, structureName: "Dictionary", operationName: "ContainsRandom")
+- (void)testDictionaryCheckContain {
+    [self performTimeTestWithPrepareBlock:generateDictionaryBlock
+                           operationBlock:^(NSMutableDictionary *dictionary, NSString *randomIndex, NSString *randomElement) {
+                               [dictionary.allValues containsObject:randomElement];
+                           }
+                         randomIndexBlock:randomDictionaryIndexBlock
+                       randomElementBlock:randomDictionaryElementBlock
+                            structureName:@"Dictionary" operationName:@"ContainsRandom"];
 }
 
+NSString *createRandomString() {
+    return [NSString stringWithFormat:@"%@%d", testString, [YALRandom intFrom:0 to:maxRandomNumber]];
+}
 
 
 @end
