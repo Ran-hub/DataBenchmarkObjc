@@ -182,7 +182,7 @@ NSString *createRandomString();
 - (void)testDictionaryAdd {
     [self performTimeTestWithPrepareBlock:generateDictionaryBlock
                            operationBlock:^(NSMutableDictionary *dict) {
-                               NSString *const uniqueKey = [testString stringByAppendingFormat:@"%d", dict.count];
+                               NSString *const uniqueKey = [NSString stringWithFormat:@"%d", dict.count];
                                dict[uniqueKey] = createRandomString();
                            }
                             structureName:@"Dictionary" operationName:@"Add"];
