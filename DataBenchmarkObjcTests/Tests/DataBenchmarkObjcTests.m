@@ -47,37 +47,37 @@ NSString *createRandomString();
     generateArrayBlock = ^NSMutableArray *(NSInteger elementCount) {
         return [ArrayHelper generateArray:(NSUInteger) elementCount];
     };
-
+    
     randomArrayIndexBlock = ^NSNumber *(NSMutableArray *array) {
         return @([ArrayHelper randomArrayIndex:array]);
     };
-
+    
     randomArrayElementBlock = ^NSString *(NSMutableArray *array, NSNumber *index) {
         return array[[index unsignedIntegerValue]];
     };
-
+    
     //Set
     generateSetBlock = ^NSMutableSet *(NSInteger elementCount) {
         return [SetHelper generateSet:(NSUInteger) elementCount];
     };
-
+    
     randomSetIndexBlock = ^NSNumber *(NSMutableSet *set) {
         return @([SetHelper randomSetIndex:set]);
     };
-
+    
     randomSetElementBlock = ^NSString *(NSMutableSet *set, NSNumber *index) {
         return [SetHelper randomSetElement:set randomIndex:[index unsignedIntegerValue]];
     };
-
+    
     //Dictionary
     generateDictionaryBlock = ^NSMutableDictionary *(NSInteger elementCount) {
         return [DictionaryHelper generateDictionary:(NSUInteger) elementCount];
     };
-
+    
     randomDictionaryIndexBlock = ^NSString *(NSMutableDictionary *dictionary) {
         return [DictionaryHelper randomDictionaryIndex:dictionary];
     };
-
+    
     randomDictionaryElementBlock = ^NSString *(NSMutableDictionary *dictionary, NSString *index) {
         return [DictionaryHelper randomDictionaryElement:dictionary randomIndex:index];
     };
@@ -101,7 +101,10 @@ NSString *createRandomString();
 - (void)testArrayAdd {
     [self performTimeTestWithPrepareBlock:generateArrayBlock
                            operationBlock:^(NSMutableArray *array) {
+                               NSTimeInterval startTime = CACurrentMediaTime();
                                [array addObject:createRandomString()];
+                               NSTimeInterval finishTime = CACurrentMediaTime();
+                               return finishTime - startTime;
                            }
                             structureName:@"Array" operationName:@"Add"];
 }
@@ -109,7 +112,10 @@ NSString *createRandomString();
 - (void)testArrayUpdate {
     [self performTimeTestWithPrepareBlock:generateArrayBlock
                            operationBlock:^(NSMutableArray *array, NSNumber *randomIndex, NSString *randomElement) {
+                               NSTimeInterval startTime = CACurrentMediaTime();
                                array[[randomIndex unsignedIntegerValue]] = createRandomString();
+                               NSTimeInterval finishTime = CACurrentMediaTime();
+                               return finishTime - startTime;
                            }
                          randomIndexBlock:randomArrayIndexBlock
                        randomElementBlock:randomArrayElementBlock
@@ -118,8 +124,11 @@ NSString *createRandomString();
 
 - (void)testArrayByIndexRead {
     [self performTimeTestWithPrepareBlock:generateArrayBlock operationBlock:^(NSMutableArray *array, NSNumber *randomIndex, NSString *randomElement) {
-                NSString *constant = array[[randomIndex unsignedIntegerValue]];
-            }            randomIndexBlock:randomArrayIndexBlock
+        NSTimeInterval startTime = CACurrentMediaTime();
+        NSString *constant = array[[randomIndex unsignedIntegerValue]];
+        NSTimeInterval finishTime = CACurrentMediaTime();
+        return finishTime - startTime;
+    }            randomIndexBlock:randomArrayIndexBlock
                        randomElementBlock:randomArrayElementBlock
                             structureName:@"Array" operationName:@"ReadRandom"];
 }
@@ -127,23 +136,29 @@ NSString *createRandomString();
 - (void)testArrayByIndexDelete {
     [self performTimeTestWithPrepareBlock:generateArrayBlock
                            operationBlock:^(NSMutableArray *array, NSNumber *randomIndex, NSString *randomElement) {
+                               NSTimeInterval startTime = CACurrentMediaTime();
                                [array removeObjectAtIndex:[randomIndex unsignedIntegerValue]];
+                               NSTimeInterval finishTime = CACurrentMediaTime();
+                               return finishTime - startTime;
                            }
                          randomIndexBlock:randomArrayIndexBlock
                        randomElementBlock:randomArrayElementBlock
                             structureName:@"Array" operationName:@"DeleteRandom"];
-
+    
 }
 
 - (void)testArrayContains {
     [self performTimeTestWithPrepareBlock:generateArrayBlock
                            operationBlock:^(NSMutableArray *array, NSNumber *randomIndex, NSString *randomElement) {
+                               NSTimeInterval startTime = CACurrentMediaTime();
                                BOOL constant = [array containsObject:randomElement];
+                               NSTimeInterval finishTime = CACurrentMediaTime();
+                               return finishTime - startTime;
                            }
                          randomIndexBlock:randomArrayIndexBlock
                        randomElementBlock:randomArrayElementBlock
                             structureName:@"Array" operationName:@"ContainsRandom"];
-
+    
 }
 
 #pragma mark - Sets
@@ -152,7 +167,10 @@ NSString *createRandomString();
 - (void)testSetAdd {
     [self performTimeTestWithPrepareBlock:generateSetBlock
                            operationBlock:^(NSMutableSet *set) {
+                               NSTimeInterval startTime = CACurrentMediaTime();
                                [set addObject:createRandomString()];
+                               NSTimeInterval finishTime = CACurrentMediaTime();
+                               return finishTime - startTime;
                            }
                             structureName:@"Set" operationName:@"Add"];
 }
@@ -160,7 +178,10 @@ NSString *createRandomString();
 - (void)testSetDelete {
     [self performTimeTestWithPrepareBlock:generateSetBlock
                            operationBlock:^(NSMutableSet *set, NSNumber *randomIndex, NSString *randomElement) {
+                               NSTimeInterval startTime = CACurrentMediaTime();
                                [set removeObject:randomElement];
+                               NSTimeInterval finishTime = CACurrentMediaTime();
+                               return finishTime - startTime;
                            }
                          randomIndexBlock:randomSetIndexBlock
                        randomElementBlock:randomSetElementBlock
@@ -170,7 +191,10 @@ NSString *createRandomString();
 - (void)testSetCheckContain {
     [self performTimeTestWithPrepareBlock:generateSetBlock
                            operationBlock:^(NSMutableSet *set, NSNumber *randomIndex, NSString *randomElement) {
+                               NSTimeInterval startTime = CACurrentMediaTime();
                                BOOL constant = [set containsObject:randomElement];
+                               NSTimeInterval finishTime = CACurrentMediaTime();
+                               return finishTime - startTime;
                            }
                          randomIndexBlock:randomSetIndexBlock
                        randomElementBlock:randomSetElementBlock
@@ -183,7 +207,10 @@ NSString *createRandomString();
     [self performTimeTestWithPrepareBlock:generateDictionaryBlock
                            operationBlock:^(NSMutableDictionary *dict) {
                                NSString *const uniqueKey = [NSString stringWithFormat:@"%d", dict.count];
+                               NSTimeInterval startTime = CACurrentMediaTime();
                                dict[uniqueKey] = createRandomString();
+                               NSTimeInterval finishTime = CACurrentMediaTime();
+                               return finishTime - startTime;
                            }
                             structureName:@"Dictionary" operationName:@"Add"];
 }
@@ -191,7 +218,10 @@ NSString *createRandomString();
 - (void)testDictionaryUpdate {
     [self performTimeTestWithPrepareBlock:generateDictionaryBlock
                            operationBlock:^(NSMutableDictionary *dictionary, NSNumber *randomIndex, NSString *randomElement) {
+                               NSTimeInterval startTime = CACurrentMediaTime();
                                dictionary[randomIndex] = createRandomString();
+                               NSTimeInterval finishTime = CACurrentMediaTime();
+                               return finishTime - startTime;
                            }
                          randomIndexBlock:randomDictionaryIndexBlock
                        randomElementBlock:randomDictionaryElementBlock
@@ -201,7 +231,10 @@ NSString *createRandomString();
 - (void)testDictionaryReadByKey {
     [self performTimeTestWithPrepareBlock:generateDictionaryBlock
                            operationBlock:^(NSMutableDictionary *dictionary, NSNumber *randomIndex, NSString *randomElement) {
+                               NSTimeInterval startTime = CACurrentMediaTime();
                                NSString *const constant = dictionary[randomIndex];
+                               NSTimeInterval finishTime = CACurrentMediaTime();
+                               return finishTime - startTime;
                            }
                          randomIndexBlock:randomDictionaryIndexBlock
                        randomElementBlock:randomDictionaryElementBlock
@@ -211,7 +244,10 @@ NSString *createRandomString();
 - (void)testDictionaryDeleteByKey {
     [self performTimeTestWithPrepareBlock:generateDictionaryBlock
                            operationBlock:^(NSMutableDictionary *dictionary, NSString *randomIndex, NSString *randomElement) {
+                               NSTimeInterval startTime = CACurrentMediaTime();
                                [dictionary removeObjectForKey:randomIndex];
+                               NSTimeInterval finishTime = CACurrentMediaTime();
+                               return finishTime - startTime;
                            }
                          randomIndexBlock:randomDictionaryIndexBlock
                        randomElementBlock:randomDictionaryElementBlock
@@ -221,7 +257,10 @@ NSString *createRandomString();
 - (void)testDictionaryCheckContain {
     [self performTimeTestWithPrepareBlock:generateDictionaryBlock
                            operationBlock:^(NSMutableDictionary *dictionary, NSString *randomIndex, NSString *randomElement) {
+                               NSTimeInterval startTime = CACurrentMediaTime();
                                [dictionary.allValues containsObject:randomElement];
+                               NSTimeInterval finishTime = CACurrentMediaTime();
+                               return finishTime - startTime;
                            }
                          randomIndexBlock:randomDictionaryIndexBlock
                        randomElementBlock:randomDictionaryElementBlock

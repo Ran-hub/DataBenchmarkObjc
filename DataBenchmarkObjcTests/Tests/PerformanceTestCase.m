@@ -10,7 +10,7 @@
 @implementation PerformanceTestCase
 
 
-- (void)performTimeTestWithPrepareBlock:(id(^)(NSInteger count))prepareBlock operationBlock:(void (^)(id))operationBlock structureName:(NSString *)structureName operationName:(NSString *)operationName {
+- (void)performTimeTestWithPrepareBlock:(id(^)(NSInteger count))prepareBlock operationBlock:(NSTimeInterval (^)(id))operationBlock structureName:(NSString *)structureName operationName:(NSString *)operationName {
     NSMutableArray *attemptsWithSumTime = [NSMutableArray arrayWithCapacity:maxElementsInStructure];
     for (NSUInteger i = 0; i < maxElementsInStructure; i++) {
         attemptsWithSumTime[i] = @0;
@@ -19,7 +19,7 @@
     for (int attempt = 0; attempt < attemptsCount; attempt++) {
         for (NSUInteger elementCount = 0; elementCount < maxElementsInStructure; elementCount++) {
             id structure = prepareBlock(elementCount);
-            NSTimeInterval time = [self measureExecutionTimeForCode:operationBlock structure:structure];
+            NSTimeInterval time = operationBlock(structure);
             attemptsWithSumTime[elementCount] = @([attemptsWithSumTime[elementCount] doubleValue] + time);
         }
     }
@@ -28,12 +28,12 @@
 }
 
 - (void)performTimeTestWithPrepareBlock:(id(^)(NSInteger count))prepareBlock
-                         operationBlock:(void (^)(id, id, id))operationBlock
+                         operationBlock:(NSTimeInterval (^)(id, id, id))operationBlock
                        randomIndexBlock:(id(^)(id))randomIndexBlock
                      randomElementBlock:(id(^)(id, id))randomElementBlock
                           structureName:(NSString *)structureName
                           operationName:(NSString *)operationName {
-    NSMutableArray *attemptsWithSumTime = [NSMutableArray arrayWithCapacity:maxElementsInStructure];
+    NSMutableArray *attemptsWithSumTime = [[NSMutableArray alloc] initWithCapacity:maxElementsInStructure];
     for (NSUInteger i = 0; i < maxElementsInStructure; i++) {
         attemptsWithSumTime[i] = @0;
     }
@@ -44,7 +44,7 @@
             id randomIndex = randomIndexBlock(structure);
             id randomElement = randomElementBlock(structure, randomIndex);
 
-            NSTimeInterval time = [self measureExecutionTimeForCode:operationBlock structure:structure randomIndex:randomIndex randomElement:randomElement];
+            NSTimeInterval time = operationBlock(structure, randomIndex, randomElement);
             attemptsWithSumTime[elementCount] = @([attemptsWithSumTime[elementCount] doubleValue] + time);
         }
     }
@@ -74,20 +74,6 @@
     NSData *buffer = [output propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
     NSString *csv = [[NSString alloc] initWithData:buffer encoding:NSUTF8StringEncoding];
     [csv writeToFile:path atomically:FALSE encoding:NSUTF8StringEncoding error:nil];
-}
-
-- (NSTimeInterval)measureExecutionTimeForCode:(void (^)(id))code structure:(id)structure {
-    NSTimeInterval startTime = CACurrentMediaTime();
-    code(structure);
-    NSTimeInterval finishTime = CACurrentMediaTime();
-    return finishTime - startTime;
-}
-
-- (NSTimeInterval)measureExecutionTimeForCode:(void (^)(id, id, id))code structure:(id)structure randomIndex:(id)randomIndex randomElement:(id)randomElement {
-    NSTimeInterval startTime = CACurrentMediaTime();
-    code(structure, randomIndex, randomElement);
-    NSTimeInterval finishTime = CACurrentMediaTime();
-    return finishTime - startTime;
 }
 
 @end
